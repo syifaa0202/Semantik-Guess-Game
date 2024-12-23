@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #dfa7c5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 20px double #ffffff;
+            border-radius: 8px;
+            background-color: #ffe49b;
+        }
+        .message {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff9ab8;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #964d7e;
+        }
+        #endMessage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mencari Makna dalam Bayangan: Teka-Teki Semantik </h1>
+        <p>Jawab dengan betul akan dapat gula-gula! "૮₍  ˶•⤙•˶ ₎ა</p>
+        <div id="game">
+            <p class="message" id="question"></p>
+            <input type="text" id="answerInput" placeholder="Type your answer here" />
+            <button id="submitButton">Submit</button>
+        </div>
+        <div id="endMessage">
+            <p>Tahniah! Anda telah berjaya menjawab semua soalan dengan betul!. nah 🍭 hihi </p>
+            <button id="restartButton">Restart Game</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Aku adalah komponen kata yang memiliki erti tetap. Aku tidak berubah walaupun konteks berubah. Apakah aku?",
+                answer: "Makna Denotasi"
+            },
+            {
+                question: "Aku hadir dalam simbol, warna, atau gambar, tetapi aku tidak memerlukan ujaran atau kata-kata. Aku sering ditemukan dalam komunikasi visual. Dalam semantik, siapakah aku?",
+                answer: "Semiotik"
+            },
+            {
+                question: "Aku muncul saat kata-kata terlalu dekat. Maknaku menjadi sama, walaupun sedikit berbeza. Aku bukan sinonim, tapi hampir mirip. Siapakah aku?",
+                answer: "Kolokasi"
+            }
+        ];
+        
+        let currentQuestionIndex = 0;
+
+        const questionElement = document.getElementById("question");
+        const answerInput = document.getElementById("answerInput");
+        const submitButton = document.getElementById("submitButton");
+        const endMessage = document.getElementById("endMessage");
+        const restartButton = document.getElementById("restartButton");
+
+        function updateQuestion() {
+            questionElement.textContent = questions[currentQuestionIndex].question;
+            answerInput.value = ""; // Clear the input field
+            answerInput.focus(); // Focus on the input field
+        }
+
+        submitButton.addEventListener("click", () => {
+            const userAnswer = answerInput.value.trim();
+            const correctAnswer = questions[currentQuestionIndex].answer.trim();
+
+            // Debugging logs
+            console.log("User Answer (trimmed):", userAnswer);
+            console.log("Correct Answer (trimmed):", correctAnswer);
+
+            // Check if the user answer matches the correct answer
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                alert(`Benar! Jawapannya adalah: ${correctAnswer}`);
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    updateQuestion();
+                } else {
+                    // End of game, show end message
+                    endMessage.style.display = 'block';
+                    document.getElementById("game").style.display = 'none';
+                }
+            } else {
+                alert("Cuba lagi! Jawapan anda tidak betul.");
+            }
+        });
+
+        restartButton.addEventListener("click", () => {
+            // Restart the game
+            currentQuestionIndex = 0;
+            endMessage.style.display = 'none';
+            document.getElementById("game").style.display = 'block';
+            updateQuestion();
+        });
+
+        // Initialize the game
+        updateQuestion();
+    </script>
+</body>
+</html>
